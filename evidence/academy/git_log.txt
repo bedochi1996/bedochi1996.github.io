@@ -1,0 +1,121 @@
+2026-09-18 docs(language): a terminal session answers in English, because Arabic does not survive a terminal
+2026-09-18 docs(claude): the standing-facts snapshot and risk register catch up with 2026-09-18
+2026-09-18 docs(index,ops): the index reaches September's truth, and the Hetzner runbook says out loud it is untrusted
+2026-09-18 docs(status): the frozen August documents tell today's truth or say plainly they are history
+2026-09-18 docs(governance): one launch scoreboard replaces two contradicting gate files, with a falsifiable invite condition
+2026-09-18 docs(decisions): the 37 unglossable terms stay bare by owner decision; superseded rows point at their amendments
+2026-09-18 docs(exec-plan): decision log records the mechanical gloss bar and the term dedup
+2026-09-18 feat(content): 44 glossary terms gain verbatim English definitions from their own cited pages
+2026-09-18 feat(content): every lesson carries its own objective, and the ten colliding titles get names
+2026-09-18 docs(exec-plan): M7+M8 runtime evidence — geometric bidi checks, orphan and outage drills pass
+2026-09-18 fix(labs): a host restart degrades honestly instead of raising the error boundary
+2026-09-18 fix(ui): learners read prose, not database enums — all five label maps now match the schema
+2026-09-18 docs(exec-plan): progress log records M0-M6 commit hashes and the crash-resume state
+2026-09-18 fix(exam,db): Arabic leaves the servable exam pools, the glossary reconciles to the file, and both get guards
+2026-09-18 fix(content): the English glossary view never falls back to Arabic (tier 1 safety net)
+2026-09-18 fix(ui): boundary screens author English first and give the loading shell its missing styles
+2026-09-18 feat(i18n): English is the default locale; bare / now lands on /en
+2026-09-18 docs(governance): English becomes the default locale, recorded in the ledger and planned in ExecPlan 0003
+2026-09-18 docs(decisions): record the owner's local-only dev sign-in bypass with its fail-closed guarantee
+2026-09-18 docs(governance): close risk 2 with its inverted premise corrected, and record the one-paper catalogue decision
+2026-09-18 fix(db): decide the exam catalogue at the end of the seed, not the middle
+2026-09-18 docs(decisions): open an append-only amendments ledger and record today's four decisions
+2026-09-18 chore(git): ignore the Playwright MCP scratch directory
+2026-09-18 docs(spec): track the owner's Hunt Operations spec so it no longer lives on one disk
+2026-09-18 docs(agent): install the executive-director operating manual and ignore session scratch
+2026-09-08 fix(db): repair unattempted profile pools instead of skipping them
+2026-09-08 fix(content): replace the 21 templated exam questions with grounded ones
+2026-09-08 fix(labs): give the packet-analysis lab its own capture, and fix the checker that hid nine bad hashes
+2026-09-08 docs(deck): make every claim in the launch deck one the platform can be checked against
+2026-09-08 feat(web): an entry page that demonstrates the skill it sells
+2026-09-08 fix: close what three audits found before the platform goes on a paid server
+2026-09-08 feat(ops): one script that publishes the student link and keeps it published
+2026-09-07 feat(auth): make privileged-account MFA a switch instead of an absolute
+2026-09-07 feat(ops): add students from a plain text file instead of hand-edited JSON
+2026-09-05 docs(deploy): correct a runbook that could not have produced a working server
+2026-09-05 feat: withdraw Kali and the Windows machine — literal parity with the INE path
+2026-09-04 test(e2e): skip the authenticated specs when no credentials are supplied
+2026-09-04 test(e2e): one sign-in per run, screenshots that show the page, and a shuffle assertion
+2026-09-04 fix(web): honest exam durations, learner-scoped counts, and a type scale that varies
+2026-09-04 feat(labs): say when a hunt's SIEM is down, and give every card its description
+2026-09-04 content: replace every glossary term the INE course files never use
+2026-09-04 chore(ops): POSIX backup and restore, launch checklist, and the launch deck
+2026-09-04 feat(admin): page the question bank and finish the review and curriculum screens
+2026-09-04 content: match the INE eCTHP path and close the answer leaks
+2026-09-04 feat(exam): shuffle options per attempt and lock source pages during integrity exams
+2026-09-04 feat(labs): per-session desktop passwords, capture scenarios, and a working brief renderer
+2026-08-13 feat(mfa): render the enrolment QR instead of only the raw otpauth string
+2026-08-13 fix(ui): contrast and mobile defects found by measuring, not looking
+2026-08-13 feat(ui): lead the entry page with the mark
+2026-08-13 feat(ui): give the academy a mark, and the lessons real diagrams
+2026-08-12 docs(ops): measured capacity and exam-answerability evidence
+2026-08-12 docs(ops): record the exam pipeline verified end to end
+2026-08-12 feat(ui): polish the remaining learner-facing pages
+2026-08-12 docs(ops): correct what the @local.badi.sa accounts actually are
+2026-08-12 docs(ops): launch checklist for the auth cutover
+2026-08-12 fix(ui): repair the two failure states a learner can actually reach
+2026-08-12 feat(ui): pair Alexandria with Vazirmatn for long-form reading
+2026-08-12 feat(ui): adopt Alexandria as the platform typeface
+2026-08-12 feat(ui): switch the Arabic typeface to Readex Pro
+2026-08-12 feat(ui): lesson reading measure and an exam console that follows the section
+2026-08-12 feat(ui): give the platform a typographic and visual system
+2026-08-12 fix(labs): stop no longer kills the orchestrator; polish the exam workspace
+2026-08-11 feat(lab): analyst desktop auto-opens Splunk + Kibana ready-to-hunt
+2026-08-11 feat(exam): SIEM-hunt practical questions wired into the comprehensive exam
+2026-08-11 feat(deploy): Hetzner production package + real Windows lab (dockur/windows)
+2026-08-11 feat(siem): Windows threat-hunt dataset — hunt real Windows logs in the SIEM
+2026-08-11 content(exam): +24 theory questions (CTI + Network) — grow v5 pool for variety
+2026-08-11 feat(exam): eCTHP-style theory/practical split (40 + 20) with slide-grounded questions
+2026-08-11 feat(lab): real Kali desktop via Kasm (kasmweb/core-kali-rolling)
+2026-08-11 feat(lab): lazy-start extra machines on demand to save RAM
+2026-08-11 feat(exam): embed the live machine beside the questions in the exam console
+2026-08-11 feat(lab): multi-machine switcher (Analyst + Kali) for the comprehensive range
+2026-08-11 feat(exam): Kali machine + per-scenario machine image selection
+2026-08-10 fix(workstation): keep the desktop panel always visible
+2026-08-10 feat(p6): full analyst desktop — taskbar + tool launchers
+2026-08-10 feat(p6): "Maximize workstation" opens the machine full-page in a new tab
+2026-08-10 feat(p6): surface SIEM sign-in on the lab page
+2026-08-10 feat(exam): official Splunk practical exam (ECTHP_SPLUNK_PRACTICAL_2026)
+2026-08-10 feat(p6): embedded Splunk hunting lab + practice-lab checkpoints
+2026-08-10 chore(splunk): expose Splunk Web on loopback for hunting
+2026-08-10 docs(p2): Splunk is now real, running, and proven
+2026-08-10 feat(p6): discoverable standalone practical-labs launcher
+2026-08-10 feat(p6): elevate curriculum list + lesson reader
+2026-08-10 feat(p6): premium dashboard hero with real-data readiness panel
+2026-08-10 feat(p5): integrated cross-source intrusion scenario + exam
+2026-08-10 docs(p4): exam environment fidelity decision (Windows/Kali topology)
+2026-08-10 feat(p2): wire + prove the real Elastic/Kibana SIEM hunt end-to-end
+2026-08-10 feat(p2): endpoint SIEM hunt scenario content + Elastic index loader
+2026-08-10 feat(p2): real Elastic/Kibana SIEM foundation + source-grounded dataset
+2026-08-10 feat(p1): exam-grade network C2 beaconing threat-hunting scenario
+2026-08-10 docs: P0 acceptance checkpoint (real-auth login deferred to release)
+2026-08-10 fix: serve a real /favicon.ico (200) matching the icon mark
+2026-08-10 chore: re-enable loopback build-access for the build phase
+2026-08-10 fix: stop /favicon.ico returning 500; add favicon icon
+2026-08-10 feat: remove the development sign-in bypass and restore real authentication
+2026-08-10 chore: remove temporary lab websocket upgrade diagnostics
+2026-08-10 fix: read only checkpoint fields from lab evidence FormData
+2026-08-10 fix: make the analyst lab machine interactive end-to-end
+2026-08-09 fix: quote capture paths and follow lab workstation containers
+2026-08-09 feat: track the runtime harness scripts
+2026-08-09 feat: add host runtime capture harness; revert failed keepalive experiment
+2026-08-09 fix: isolate the lab auth hop from pooled connections on Caddy 2.11.4
+2026-08-09 diagnose lab websocket upgrade path
+2026-08-09 fix: authenticate the lab proxy hop and resolve session ownership from the store
+2026-08-09 fix: vouch for the lab proxy at the orchestrator hop instead of copy_headers
+2026-08-09 fix: return 200 from lab authorize so forward_auth propagates its headers
+2026-08-09 fix: pin lab proxy directive order so forward_auth cannot be skipped
+2026-08-09 fix: prevent sign-in/dashboard redirect loop when no impersonable account exists
+2026-08-09 feat: add loopback-only development sign-in bypass; fix startup health-check prompt
+2026-08-09 fix: add .cmd entry points so the platform can actually be started on this host
+2026-08-09 feat: verify and complete core product; takeover audit and status reconciliation
+2026-08-06 feat: add learner credential distribution file
+2026-08-06 feat: add secure local learner account file
+2026-08-06 fix: verify live runtime and recovery paths
+2026-08-06 feat: complete secure operations and release checkpoint
+2026-08-05 feat: deliver isolated browser lab vertical slice
+2026-08-05 feat: deliver secure versioned exam simulator
+2026-08-04 feat: deliver source-reviewed curriculum slice
+2026-08-04 feat: establish secure bilingual application foundation
+2026-08-04 feat: verify source ingestion baseline
+2026-08-04 chore: establish bootstrap baseline

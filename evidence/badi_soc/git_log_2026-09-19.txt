@@ -1,0 +1,59 @@
+2026-09-19 b7eeb7a Declare the line endings, and stop the rewrite running where it cannot finish
+2026-09-19 52e65ba One script that rewrites the history, and proves it did
+2026-09-19 3544476 Stop naming real hosts as criminal infrastructure
+2026-09-19 8eabbd3 Close what the readiness check found
+2026-09-19 949575f Make the trailer script say which files are dirty
+2026-09-19 9bb50a0 Give the alert title room, and stop the assistant launcher stealing clicks
+2026-09-19 c4e124c Stop auto-triage disagreeing with the queue it sits under
+2026-09-19 ee1a623 Regenerate the review package against the product that exists now
+2026-09-19 fc37a63 Show the logs behind an alert, and guard the defect that hid the war room
+2026-09-19 1a15a15 Make a fresh deployment possible: the migration could not build the schema
+2026-09-19 a56bf10 Make the production build runnable, and the handoff count what it claims
+2026-09-19 20bec4a Rewrite the developer documentation in English, against what the code does
+2026-09-19 ad4a555 Stop marking every open alert late, and stop offering screens the API refuses
+2026-09-19 c3def9c Close the last two ways to farm points, and the answer-key oracle
+2026-09-19 1af6053 Stop the assistant inventing incidents, and render what it writes
+2026-09-19 435f2b6 Fix the three blockers a second audit found, one of them mine
+2026-09-19 b89dfae Show the whole ATT&CK matrix, and stop amputating table text
+2026-09-19 5632cc5 Stop shipping the answer key to the browser before the analyst answers
+2026-09-19 1a06f25 Make the scoreboard mean something, and stop the score being farmable
+2026-09-19 73fbc61 Repaint the brand to the palette the product actually uses
+2026-09-19 712e686 Add a switch that takes the sign-in wall down while the product is built
+2026-09-19 3a59de9 Remove two scratch scripts that reached the last commit
+2026-09-19 315b636 Fix what an adversarial review found in today's own changes
+2026-09-19 45f3fa9 Stop sign-in failing on a capital letter
+2026-09-19 178c2ff Make an indicator lookup show real intelligence, and say so when it cannot
+2026-09-19 9824b15 Send the assistant the conversation the panel is showing
+2026-09-19 1afdfd0 Keep working material out of the repository, and describe the product in English
+2026-09-19 9476e8d Make English the floor, not only the default
+2026-09-18 1afadfc Close the one endpoint that answered without a caller
+2026-09-18 0135bed Take the invented figures off the threat map
+2026-09-18 f5a1284 Stop the lint-explaining comment from tripping the lint
+2026-09-18 709eff9 Keep the design lint clean in the assistant test
+2026-09-18 af75b55 Render the assistant's headings and emphasis instead of printing them
+2026-09-18 f8dc8c6 Add every screen's exported report, in both languages
+2026-09-18 8469fe2 Add the review package: a brief and an eight-page overview
+2026-09-18 2836590 Make the response targets mean something in the queue
+2026-09-18 7171a1b Collapse the navigation when the window is too narrow for it
+2026-09-18 a8117d9 Cover the report renderer, IOC links and SLA maths with tests
+2026-09-18 55cda57 Keep development sessions alive across a backend restart
+2026-09-18 d006a1f Bring BADI AI back, and stop presenting invented figures as lookups
+2026-09-18 e9bbb03 Let a playbook run belong to the incident it was run for
+2026-09-18 a6e3fa8 Make the documentation describe the product that exists
+2026-09-18 378712a Repair the backend suite the English conversion broke
+2026-09-18 52afe60 Stop pytest from being able to empty the development database
+2026-09-18 51bb7f1 Green end-to-end suite, and screenshots that show the English product
+2026-09-18 a133ff7 Point the end-to-end suite at the English default it now renders
+2026-09-18 fe02240 Keep Latin runs readable inside an Arabic report, and stop the header colliding
+2026-09-18 4632b3a Expanded indicator view, a report from every screen, readable playbooks
+2026-09-18 09791b8 Make the whole product speak English, with Arabic still one click away
+2026-09-18 9263821 redesign: light, familiar, bilingual — rebuilt for first-time legibility
+2026-09-18 e468ca3 docs: point the UI skill at the new design system
+2026-09-17 1186191 design: bring every text token to measured AA contrast
+2026-09-17 eb887dd design: enforce the system in CI, rewrite the docs, capture the screens
+2026-09-17 cecaabb design: rebuild home, reports, threat map, war room, attack replay, scoreboard, settings
+2026-09-17 c0dd2d1 chore: drop old design prototypes and test artifacts
+2026-09-17 9cf459c design: rebuild triage, investigation, playbooks, MITRE, compliance, login
+2026-09-17 2fd3dac design: rebuild application shell and shared components on tokens
+2026-09-17 2c4bb6f design: establish Ash and Sand token layer, IBM Plex type, brand mark
+2026-04-14 1ec6b89 BADI SOC v1.0 — Full Arabic SOC platform with 14 features

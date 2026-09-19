@@ -1,0 +1,8 @@
+badi-academy-web-1	badi-academy-web	Up 12 minutes (healthy)
+badi-academy-kibana-1	docker.elastic.co/kibana/kibana:9.4.4	Up 4 hours
+badi-academy-elasticsearch-1	docker.elastic.co/elasticsearch/elasticsearch:9.4.4	Up 4 hours
+badi-academy-splunk-1	splunk/splunk:10.4.1-rhel9	Up 4 hours (healthy)
+badi-academy-caddy-1	caddy:2.11.4-alpine	Up 4 hours
+badi-academy-orchestrator-1	badi-academy-orchestrator	Up 4 hours (healthy)
+badi-academy-postgres-1	postgres:18.4-alpine3.24	Up 4 hours (healthy)
+badi-academy-redis-1	redis:8.2.6-alpine	Up 4 hours (healthy)

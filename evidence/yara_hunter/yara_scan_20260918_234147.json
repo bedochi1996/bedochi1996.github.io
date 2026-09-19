@@ -1,0 +1,62 @@
+{
+  "tool": "YARA Hunter Studio",
+  "version": "3.0.0",
+  "summary": {
+    "rule_path": "C:\\Users\\fortb\\Desktop\\yata tole\\yara tool - badi alosaimi\\rules\\demo_rules.yar",
+    "target": "C:\\Users\\fortb\\Desktop\\yata tole\\yara tool - badi alosaimi\\samples",
+    "output_dir": "C:\\Users\\fortb\\Desktop\\yata tole\\yara tool - badi alosaimi\\reports",
+    "trigger": "python-example",
+    "recursive": true,
+    "calculate_hash": true,
+    "started_at": "2026-09-18T23:41:47+03:00",
+    "finished_at": "2026-09-18T23:41:47+03:00",
+    "total_files": 2,
+    "scanned_files": 2,
+    "skipped_files": 0,
+    "error_files": 0,
+    "matched_files": 1,
+    "clean_files": 1,
+    "total_matches": 1,
+    "duration_ms": 42
+  },
+  "results": [
+    {
+      "status": "CLEAN",
+      "file_path": "C:\\Users\\fortb\\Desktop\\yata tole\\yara tool - badi alosaimi\\samples\\clean_sample.txt",
+      "rule": "",
+      "namespace": "",
+      "sha256": "e2e338211ddc2e70deb5549b545393f52de9d88725667b47f8538d2c32fb5c7c",
+      "file_size": 99,
+      "string_hits": [],
+      "error": "",
+      "duration_ms": 9
+    },
+    {
+      "status": "MATCH",
+      "file_path": "C:\\Users\\fortb\\Desktop\\yata tole\\yara tool - badi alosaimi\\samples\\suspicious_demo.txt",
+      "rule": "Detect_Harmless_Demo_Signature",
+      "namespace": "rule_1_demo_rules",
+      "sha256": "9418098765df77b22c0defac67437d76e32f135b03ab34a290be76c90b820b56",
+      "file_size": 225,
+      "string_hits": [
+        {
+          "identifier": "$demo_signature",
+          "offset": 34,
+          "preview": "MALWARE_DEMO_SIGNATURE_2026"
+        },
+        {
+          "identifier": "$suspicious_command",
+          "offset": 110,
+          "preview": "powershell -enc"
+        },
+        {
+          "identifier": "$demo_c2",
+          "offset": 157,
+          "preview": "demo-c2.invalid"
+        }
+      ],
+      "error": "",
+      "duration_ms": 8
+    }
+  ]
+}

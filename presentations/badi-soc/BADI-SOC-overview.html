@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BADI SOC — Overview</title>
+<style>
+  /* Tokens mirrored from frontend/app/globals.css. A standalone document
+     cannot resolve the application's variables, so it carries its own. */
+  :root {
+    --ground: #f6f7f9;
+    --panel: #ffffff;
+    --subtle: #f2f4f7;
+    --border: #e2e6eb;
+    --border-strong: #c8cfd8;
+    --text: #16191d;
+    --text-muted: #576170;
+    --signal: #1f5fd0;
+    --signal-tint: #eaf1fd;
+    --critical: #c5372c;
+    --critical-tint: #fdecea;
+    --high: #a8561a;
+    --medium: #856526;
+    --ok: #3f7a5c;
+    --ok-tint: #ecf5f0;
+    --radius-sm: 6px;
+    --radius: 8px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--text);
+    font-family: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .deck {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 24px 16px 64px;
+  }
+
+  .slide {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    margin-bottom: 20px;
+  }
+
+  .slide-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: 40px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: 24px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 15px;
+    margin: 0 0 6px;
+    font-weight: 600;
+  }
+
+  p { margin: 0 0 14px; }
+  p:last-child { margin-bottom: 0; }
+
+  .muted { color: var(--text-muted); }
+  .lead { font-size: 17px; line-height: 1.5; }
+
+  .num {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .step {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  /* --- Cover --- */
+  .cover { padding: 64px 40px; }
+
+  .rule {
+    width: 48px;
+    height: 3px;
+    background: var(--signal);
+    border-radius: 2px;
+    margin: 0 0 28px;
+  }
+
+  .cover-meta {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 20px;
+  }
+
+  .cover-meta dt {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .cover-meta dd { margin: 0; font-weight: 500; }
+
+  /* --- Grids --- */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  .card {
+    background: var(--subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+  }
+
+  .card.accent { background: var(--signal-tint); border-color: #cfe0fa; }
+
+  .card p { font-size: 14px; color: var(--text-muted); margin: 0; }
+
+  .card .marker {
+    display: block;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--signal);
+    margin-bottom: 8px;
+  }
+
+  /* --- Figures --- */
+  .figures {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .figure { background: var(--panel); padding: 16px 18px; }
+
+  .figure .value {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.1;
+    display: block;
+  }
+
+  .figure .label {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 6px;
+  }
+
+  /* --- Table --- */
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+
+  th {
+    text-align: start;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    padding: 8px 12px;
+    background: var(--subtle);
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: 0; }
+
+  /* --- Status marks: never colour alone, always a word too --- */
+  .mark {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+  }
+
+  .mark.built { background: var(--ok-tint); color: var(--ok); }
+  .mark.gap { background: var(--critical-tint); color: var(--critical); }
+
+  ul { margin: 0; padding-inline-start: 20px; }
+  li { margin-bottom: 8px; }
+  li:last-child { margin-bottom: 0; }
+
+  .note {
+    border-inline-start: 3px solid var(--signal);
+    background: var(--signal-tint);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 14px 18px;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  .foot {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 8px 0 0;
+  }
+
+  /* --- Narrow screens: this will be read on a phone.
+         Screen only: on paper the page is wide, and letting this apply would
+         collapse every grid into a single column. --- */
+  @media screen and (max-width: 760px) {
+    body { font-size: 14px; }
+    .deck { padding: 16px 16px 40px; }
+    .slide { padding: 24px 20px; }
+    .cover { padding: 36px 20px; }
+    h1 { font-size: 30px; }
+    h2 { font-size: 20px; }
+    .slide-head { flex-direction: column; gap: 4px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .figures { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* --- Print: one slide per page --- */
+  @page { size: A4 landscape; margin: 12mm; }
+
+  @media print {
+    body { background: #ffffff; font-size: 11.5pt; line-height: 1.45; }
+    .deck { max-width: none; padding: 0; }
+    .slide {
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      margin: 0;
+      break-after: page;
+      page-break-after: always;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .slide:last-of-type { break-after: auto; page-break-after: auto; }
+    .card, .figures, table, .note, tr { break-inside: avoid; page-break-inside: avoid; }
+
+    .cover { padding: 18mm 0 0; }
+    h1 { font-size: 40pt; }
+    h2 { font-size: 19pt; }
+    h3 { font-size: 11.5pt; }
+    .lead { font-size: 13pt; }
+    .slide-head { margin-bottom: 14px; padding-bottom: 8px; }
+    .cover-meta { margin-top: 26px; padding-top: 14px; }
+
+    .card { padding: 14px 16px; }
+    .grid-2, .grid-3 { gap: 14px; }
+    .figure { padding: 14px 16px; }
+    .figure .value { font-size: 19pt; }
+    .figure .label { font-size: 9.5pt; margin-top: 5px; }
+
+    table { font-size: 10.5pt; }
+    th { padding: 7px 10px; font-size: 9.5pt; }
+    td { padding: 7px 10px; }
+    .mark { font-size: 9.5pt; padding: 2px 8px; }
+
+    .note { margin-top: 16px; padding: 12px 16px; font-size: 10.5pt; }
+    .foot { display: none; }
+  }
+</style>
+  <!-- Web-font <link> tags removed for the public copy: this deck is
+       opened from an email attachment, often with no network. -->
+</head>
+<body>
+<div class="deck">
+
+  <!-- 1 — Cover -->
+  <section class="slide cover">
+    <div class="rule"></div>
+    <h1>BADI SOC</h1>
+    <p class="lead muted">A bilingual platform a security operations centre both runs a shift in and trains on, with governance joined to the daily work.</p>
+    <dl class="cover-meta">
+      <div>
+        <dt>Author</dt>
+        <dd>Badi Saeed Alosaimi<br><span class="muted">Blue Team / SOC analyst — eCIR, eJPT</span></dd>
+      </div>
+      <div>
+        <dt>Date</dt>
+        <dd class="num">19 September 2026</dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd>Working build, not deployed</dd>
+      </div>
+    </dl>
+  </section>
+
+  <!-- 2 — The problem -->
+  <section class="slide">
+    <div class="slide-head">
+      <h2>What a centre actually loses time to</h2>
+      <span class="step">01 / 07</span>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <span class="marker">01</span>
+        <h3>Triage without context</h3>
+        <p>An L1 opens an alert and then opens four other tools to decide whether it matters.</p>
+      </div>
+      <div class="card">
+        <span class="marker">02</span>
+        <h3>Escalation by message</h3>
+        <p>Context is retyped into chat or email, and the audit trail ends there.</p>
+      </div>
+      <div class="card">
+        <span class="marker">03</span>
+        <h3>Reporting after the fact</h3>
+        <p>The report is rebuilt by hand from memory and screenshots, days later.</p>
+      </div>
+      <div class="card">
+        <span class="marker">04</span>
+        <h3>Training somewhere else</h3>
+        <p>Analysts drill in a tool that behaves nothing like the one they work in.</p>
+      </div>
+      <div class="card">
+        <span class="marker">05</span>
+        <h3>Compliance as a separate file</h3>
+        <p>ECC evidence is re-entered by hand, disconnected from the incidents that prove it.</p>
+      </div>
+      <div class="card">
+        <span class="marker">06</span>
+        <h3>Arabic bolted on</h3>
+        <p>A translated skin over an English tool, with reversed addresses and blank strings.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 — What it is -->
+  <section class="slide">
+    <div class="slide-head">
+      <h2>One interface, two modes, four roles</h2>
+      <span class="step">02 / 07</span>
+    </div>
+    <p class="lead">Twelve screens serve an L1 triaging a queue, an L2 building an incident timeline, an L3 reviewing ATT&amp;CK coverage, and a manager reading analyst performance and compliance. A toggle in the header switches the same screens between training and live work.</p>
+    <div class="grid-2" style="margin-top:22px">
+      <div class="card">
+        <h3>Training mode</h3>
+        <p>Answers from a seeded dataset of 50,000 Windows events, with teaching hints on the elements an analyst is learning to read.</p>
+      </div>
+      <div class="card accent">
+        <h3>Live mode</h3>
+        <p>Sends indicators to real threat-intelligence providers. Where a lookup cannot be made, the screen says so before the reader reads the number.</p>
+      </div>
+    </div>
+    <div class="note">
+      The interface never presents a dataset figure in the same treatment as a live one. An earlier build did, and it was corrected deliberately — a security tool that overstates its own certainty is worse than one that admits a gap.
+    </div>
+  </section>
+
+  <!-- 4 — Differentiators -->
+  <section class="slide">
+    <div class="slide-head">
+      <h2>Four things that set it apart</h2>
+      <span class="step">03 / 07</span>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <span class="marker">01</span>
+        <h3>Governance joined to the work</h3>
+        <p>Thirty NCA ECC controls across five domains sit in the same database as the alerts and incidents. Compliance is read from operational records, not re-entered.</p>
+      </div>
+      <div class="card">
+        <span class="marker">02</span>
+        <h3>Genuinely bilingual</h3>
+        <p>English default, Arabic one click away, flipping strings and direction. The API returns translation keys rather than prose, so errors render in the reader's language. Latin runs inside Arabic are bidi-isolated, on screen and on paper.</p>
+      </div>
+      <div class="card">
+        <span class="marker">03</span>
+        <h3>Every screen exports a report</h3>
+        <p>Twelve screens, twelve printable reports carrying what was on screen, with a cover and correct direction in both languages. No screenshot step.</p>
+      </div>
+      <div class="card">
+        <span class="marker">04</span>
+        <h3>It states what it does not know</h3>
+        <p>A missing key or a failed lookup produces a marked notice, not a confident number. Provenance is part of the interface.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 — What is real -->
+  <section class="slide">
+    <div class="slide-head">
+      <h2>What is built today</h2>
+      <span class="step">04 / 07</span>
+    </div>
+    <div class="figures">
+      <div class="figure"><span class="value">12</span><span class="label">Screens, each with loading, error and empty states</span></div>
+      <div class="figure"><span class="value">51</span><span class="label">API operations, authenticated on every data endpoint</span></div>
+      <div class="figure"><span class="value">50,000</span><span class="label">Seeded Windows events</span></div>
+      <div class="figure"><span class="value">216</span><span class="label">Automated tests — 136 backend, 80 frontend — plus an end-to-end suite</span></div>
+    </div>
+    <table style="margin-top:22px">
+      <thead>
+        <tr><th style="width:26%">Area</th><th>Built</th><th style="width:16%">State</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Alert triage</td><td>20 alerts across five severities, auto-triage verdict, escalation with 26 recorded handovers</td><td><span class="mark built">Working</span></td></tr>
+        <tr><td>Investigation</td><td>10 incidents, a timeline, indicator enrichment with per-source provenance, and the raw log lines behind every alert</td><td><span class="mark built">Working</span></td></tr>
+        <tr><td>Playbooks</td><td>6 playbooks, step-tracked, each run tied to the incident it was run for</td><td><span class="mark built">Working</span></td></tr>
+        <tr><td>MITRE ATT&amp;CK</td><td>31 techniques across 12 tactics, coverage computed from real incident mappings</td><td><span class="mark built">Working</span></td></tr>
+        <tr><td>NCA ECC</td><td>30 controls in 5 domains, with an Arabic-correct export</td><td><span class="mark built">Working</span></td></tr>
+        <tr><td>Attack replay</td><td>3 timed scenarios, graded server-side, with the answer key withheld until the analyst has answered</td><td><span class="mark built">Working</span></td></tr>
+        <tr><td>Threat intelligence</td><td>VirusTotal, AbuseIPDB and AlienVault OTX — all three verified answering on 19 September 2026</td><td><span class="mark built">Working</span></td></tr>
+        <tr><td>Assistant</td><td>Google Gemini, given a live snapshot of this centre's own records, and instructed to decline what is not in it</td><td><span class="mark built">Working</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 6 — Gaps -->
+  <section class="slide">
+    <div class="slide-head">
+      <h2>What is not built yet</h2>
+      <span class="step">05 / 07</span>
+    </div>
+    <p class="muted">A reviewer's time is better spent on the gaps than on the claims, so they are stated here rather than found.</p>
+    <table style="margin-top:18px">
+      <tbody>
+        <tr>
+          <td style="width:30%"><strong>SIEM connector</strong></td>
+          <td>"Live" refers to live threat intelligence, not a live telemetry feed. The 50,000 events are seeded. Ingesting from Splunk, Sentinel or QRadar is the largest remaining piece of work.</td>
+          <td style="width:14%"><span class="mark gap">Not built</span></td>
+        </tr>
+        <tr>
+          <td style="width:30%"><strong>Authentication, currently off</strong></td>
+          <td>Implemented on every data endpoint and switched off by a documented build-time flag while the product is finished. Start-up refuses it against a non-local database and warns on every boot. It goes back on before any deployment.</td>
+          <td><span class="mark gap">Switched off</span></td>
+        </tr>
+        <tr>
+          <td><strong>User administration</strong></td>
+          <td>Adding or disabling an analyst means editing a source file and reseeding. All eleven accounts share one development password, and there is no audit trail of who changed what.</td>
+          <td><span class="mark gap">Not built</span></td>
+        </tr>
+        <tr>
+          <td><strong>Shared SLA targets</strong></td>
+          <td>Targets drive the queue markers correctly but are stored per browser. There is no server endpoint to share one set across a centre.</td>
+          <td><span class="mark gap">Partial</span></td>
+        </tr>
+        <tr>
+          <td><strong>Attack replay depth</strong></td>
+          <td>Three scenarios exist against the six originally specified.</td>
+          <td><span class="mark gap">Partial</span></td>
+        </tr>
+        <tr>
+          <td><strong>Shift handoff, compliance log</strong></td>
+          <td>Implemented but unexercised — no records generated against them yet.</td>
+          <td><span class="mark gap">Untested</span></td>
+        </tr>
+        <tr>
+          <td><strong>Deployment</strong></td>
+          <td>Runs under Docker Compose on one machine. No hosting, TLS termination, backup schedule or SSO.</td>
+          <td><span class="mark gap">Not built</span></td>
+        </tr>
+        <tr>
+          <td><strong>VirusTotal licence</strong></td>
+          <td>The free tier is licensed for non-commercial use. Demonstration is within it; deployment inside an organisation needs a paid contract, costed separately.</td>
+          <td><span class="mark gap">Commercial</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 7 — How it is built -->
+  <section class="slide">
+    <div class="slide-head">
+      <h2>How it is built</h2>
+      <span class="step">06 / 07</span>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <h3>Frontend</h3>
+        <p>Next.js 14 App Router, TypeScript strict with no <span class="num">any</span>, Tailwind over a single token file, Zustand. Colour is declared once and enforced by a lint rule in CI.</p>
+      </div>
+      <div class="card">
+        <h3>Backend</h3>
+        <p>FastAPI, SQLAlchemy 2.0 async, PostgreSQL with Alembic migrations. Identity and role derive from the JWT server-side and are never trusted from a request body.</p>
+      </div>
+      <div class="card">
+        <h3>Verification</h3>
+        <p>136 backend tests, 80 frontend unit tests, Playwright end-to-end, a design lint that fails the build, and a CI job that builds the schema from an empty database.</p>
+      </div>
+    </div>
+    <div class="note">
+      Accessibility is measured, not asserted: every text and background pair in the palette was computed against WCAG AA, and the weakest pair in the product measures 4.6:1 against a 4.5:1 requirement.
+    </div>
+  </section>
+
+  <!-- 8 — Next -->
+  <section class="slide">
+    <div class="slide-head">
+      <h2>What a deployment would require</h2>
+      <span class="step">07 / 07</span>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Infrastructure</h3>
+        <p>A Linux host or container platform, managed PostgreSQL, TLS termination, a backup schedule.</p>
+      </div>
+      <div class="card">
+        <h3>Identity</h3>
+        <p>An identity provider for single sign-on, replacing the built-in accounts.</p>
+      </div>
+      <div class="card">
+        <h3>Telemetry</h3>
+        <p>A connector to whichever SIEM is already in place. The data model is ready for it; the connector is not written.</p>
+      </div>
+      <div class="card">
+        <h3>Licensing</h3>
+        <p>A commercial VirusTotal contract. The other two intelligence sources and the assistant are usable as configured.</p>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:22px">Nothing in the architecture blocks any of these. None of them is built, and the brief accompanying this deck says so in the same words.</p>
+  </section>
+
+  <p class="foot">BADI SOC — prepared by Badi Saeed Alosaimi, 18 September 2026</p>
+
+</div>
+</body>
+</html>

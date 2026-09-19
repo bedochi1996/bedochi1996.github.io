@@ -1,0 +1,84 @@
+{
+ "captured": "2026-09-18",
+ "account": "bedochi1996",
+ "repo_count": 11,
+ "repos": [
+  {
+   "name": "esoc-review",
+   "language": "HTML",
+   "pushed_at": "2026-08-31",
+   "private": false,
+   "license": null
+  },
+  {
+   "name": "ejpt-field-manual",
+   "language": "JavaScript",
+   "pushed_at": "2026-08-17",
+   "private": false,
+   "license": null
+  },
+  {
+   "name": "YARA-Hunter-Studio",
+   "language": "Python",
+   "pushed_at": "2026-07-31",
+   "private": false,
+   "license": "MIT"
+  },
+  {
+   "name": "YARA-Hunter-Lite",
+   "language": "Python",
+   "pushed_at": "2026-07-30",
+   "private": false,
+   "license": null
+  },
+  {
+   "name": "yara-rool-test",
+   "language": "Python",
+   "pushed_at": "2026-07-30",
+   "private": false,
+   "license": null
+  },
+  {
+   "name": "soc-incident-reports",
+   "language": null,
+   "pushed_at": "2026-05-03",
+   "private": false,
+   "license": null
+  },
+  {
+   "name": "blue-team-labs",
+   "language": "Python",
+   "pushed_at": "2026-04-30",
+   "private": false,
+   "license": null
+  },
+  {
+   "name": "bedochi1996",
+   "language": null,
+   "pushed_at": "2026-04-29",
+   "private": false,
+   "license": null
+  },
+  {
+   "name": "badi-soc-platform",
+   "language": "Python",
+   "pushed_at": "2026-04-29",
+   "private": false,
+   "license": null
+  },
+  {
+   "name": "baditech-academy",
+   "language": null,
+   "pushed_at": "2026-04-28",
+   "private": false,
+   "license": null
+  },
+  {
+   "name": "Aimmy",
+   "language": "C#",
+   "pushed_at": "2025-05-05",
+   "private": false,
+   "license": "NOASSERTION"
+  }
+ ]
+}

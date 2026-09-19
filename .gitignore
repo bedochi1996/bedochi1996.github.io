@@ -1,0 +1,29 @@
+# Nothing bearing a national identity number, a student number or an employer
+# name belongs in this repository — not in a file, not in a commit, not in a
+# filename. These patterns are a backstop, not the control: the control is
+# internal/tools/pii_gate.py, which must pass before any push.
+
+# quarantined material, should it ever be placed here by accident
+_PRIVATE*/
+_OLD_git*/
+*CONTAINS_NATIONAL_ID*
+*DO_NOT_SHARE*
+*DO_NOT_SEND*
+pii_secrets.txt
+
+# raw Saudi training certificates and university records — every one of these
+# prints an identity number on its face
+TVTC_Accredited_*
+KAU_Cybersecurity_Diploma_*
+documents/education/*Transcript*
+jmbEyMk*
+
+# working files
+*.zip
+.DS_Store
+Thumbs.db
+desktop.ini
+node_modules/
+.venv/
+__pycache__/
+*.pyc

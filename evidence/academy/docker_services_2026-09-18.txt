@@ -1,0 +1,8 @@
+badi_soc_backend | badi-soc-backend | Up 5 minutes (healthy)
+badi-lab-4e930653ec8e40fe043a0e30 | badi/analyst-workstation:1.0.0 | Up 18 minutes (healthy)
+badi-academy-caddy-1 | caddy:2.11.4-alpine | Up About an hour
+badi-academy-web-1 | badi-academy-web | Up About an hour (healthy)
+badi-academy-orchestrator-1 | badi-academy-orchestrator | Up About an hour (healthy)
+badi-academy-postgres-1 | postgres:18.4-alpine3.24 | Up About an hour (healthy)
+badi-academy-redis-1 | redis:8.2.6-alpine | Up About an hour (healthy)
+badi_soc_db | postgres:16-alpine | Up 5 hours (healthy)

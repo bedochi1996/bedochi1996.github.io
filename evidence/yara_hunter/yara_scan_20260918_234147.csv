@@ -1,0 +1,3 @@
+﻿status,rule,namespace,file_path,sha256,file_size,string_hits,error,duration_ms
+CLEAN,,,C:\Users\fortb\Desktop\yata tole\yara tool - badi alosaimi\samples\clean_sample.txt,e2e338211ddc2e70deb5549b545393f52de9d88725667b47f8538d2c32fb5c7c,99,,,9
+MATCH,Detect_Harmless_Demo_Signature,rule_1_demo_rules,C:\Users\fortb\Desktop\yata tole\yara tool - badi alosaimi\samples\suspicious_demo.txt,9418098765df77b22c0defac67437d76e32f135b03ab34a290be76c90b820b56,225,$demo_signature@34=MALWARE_DEMO_SIGNATURE_2026 | $suspicious_command@110=powershell -enc | $demo_c2@157=demo-c2.invalid,,8

@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Badi Alosaimi Threat Hunting Academy</title>
+<style>
+  :root{
+    --ink:#0b0f14;
+    --panel:#11171f;
+    --line:#22303d;
+    --text:#d7e3ec;
+    --dim:#8fa3b4;
+    --accent:#f0883e;
+    --good:#4ec08a;
+    --warn:#e0b341;
+    --mono: ui-monospace, "Cascadia Mono", "JetBrains Mono", Consolas, monospace;
+    --sans: "Segoe UI", Inter, system-ui, -apple-system, Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%;background:var(--ink);color:var(--text);font-family:var(--sans)}
+  body{overflow:hidden}
+
+  .slide{
+    position:absolute; inset:0; display:none;
+    padding:44px 60px 74px; overflow:auto;
+  }
+  .slide.on{display:flex; flex-direction:column}
+
+  .eyebrow{
+    font-family:var(--mono); font-size:17px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--accent); margin:0 0 12px;
+  }
+  h1{font-size:62px; line-height:1.06; margin:0 0 18px; font-weight:650; letter-spacing:-.01em}
+  h2{font-size:40px; line-height:1.14; margin:0 0 16px; font-weight:650; letter-spacing:-.01em}
+  h3{font-size:24px; margin:0 0 10px; font-weight:600}
+  p{font-size:22px; line-height:1.5; margin:0 0 14px; max-width:68ch}
+  p.lead{font-size:27px; color:var(--text)}
+  .dim{color:var(--dim)}
+  strong{color:#fff; font-weight:650}
+  code,.mono{font-family:var(--mono)}
+
+  ul{font-size:21px; line-height:1.55; margin:0 0 14px; padding-left:22px; max-width:76ch}
+  li{margin:0 0 8px}
+  li::marker{color:var(--accent)}
+
+  .grid{display:grid; gap:18px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .figs{align-content:center}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+
+  .stat{border:1px solid var(--line); background:var(--panel); padding:18px 20px}
+  .stat b{display:block; font-family:var(--mono); font-size:42px; line-height:1; color:#fff; margin-bottom:9px}
+  .stat span{display:block; font-size:18px; color:var(--dim); line-height:1.35}
+
+  /* The frames are 16:9. Letting the <img> fill a taller box paints a black band under every
+     screenshot, so the image is scaled to its own aspect inside whatever box it is given and
+     the caption is pushed up under it. */
+  figure{margin:0; flex:1; display:flex; flex-direction:column; align-items:center;
+         justify-content:flex-start; min-height:0}
+  figure img{
+    flex:0 1 auto; min-height:0;
+    width:auto; height:auto; max-width:100%; max-height:100%;
+    border:1px solid var(--line); background:#000;
+  }
+  figcaption{font-size:18px; color:var(--dim); margin-top:10px; line-height:1.45; max-width:120ch;
+             align-self:flex-start}
+  figcaption b{color:var(--text)}
+  .g2 figcaption{font-size:17px}
+
+  .hero{display:flex; gap:40px; flex:1; min-height:0; align-items:stretch}
+  .hero .title-wrap{flex:1 1 46%}
+  .hero figure{flex:1 1 54%}
+
+  table{border-collapse:collapse; font-size:19px; width:100%}
+  th,td{border:1px solid var(--line); padding:8px 12px; text-align:left; vertical-align:top}
+  th{background:var(--panel); color:var(--dim); font-weight:600; font-size:16px;
+     text-transform:uppercase; letter-spacing:.08em}
+  td.mono{font-family:var(--mono); font-size:16px}
+  table.tight{font-size:17px}
+  table.tight th,table.tight td{padding:6px 10px}
+  table.tight td.mono{font-size:15px}
+
+  .chip{display:inline-block; font-family:var(--mono); font-size:16px; padding:3px 9px;
+        border:1px solid var(--line); color:var(--dim); margin:0 7px 7px 0}
+  .chip.on{border-color:var(--good); color:var(--good)}
+  .chip.off{border-color:var(--warn); color:var(--warn)}
+
+  .rule{height:1px; background:var(--line); margin:18px 0}
+
+  .foot{
+    position:fixed; left:0; right:0; bottom:0; height:50px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 60px; border-top:1px solid var(--line); background:var(--ink);
+    font-family:var(--mono); font-size:15px; color:var(--dim);
+  }
+  .foot .keys{color:#5d6f7e}
+  .bar{position:fixed; left:0; bottom:50px; height:2px; background:var(--accent); width:0; transition:width .15s linear}
+
+  .title-wrap{flex:1; display:flex; flex-direction:column; justify-content:center}
+  .warn-box{border:1px solid var(--warn); border-left-width:4px; padding:14px 18px; background:#181307}
+  .warn-box p{margin:0; font-size:20px}
+
+  @media (max-width:1200px){
+    h1{font-size:44px} h2{font-size:31px} p{font-size:19px} .stat b{font-size:32px}
+    .hero{flex-direction:column}
+  }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide on">
+  <div class="hero">
+    <div class="title-wrap">
+      <p class="eyebrow">Private · invite-only · built 2026</p>
+      <h1>Badi Alosaimi<br>Threat Hunting Academy</h1>
+      <p class="lead dim" style="max-width:46ch">
+        A working threat-hunting platform built around INE's eCTHP path: 55 source-cited lessons,
+        a 643-question bank, a server-graded 60-question paper, and eleven lab scenarios that
+        launch real containers running real analyst tools over evidence you can verify by hash.
+      </p>
+      <div class="rule"></div>
+      <p class="dim" style="font-size:19px; max-width:46ch">
+        It is not finished, not deployed and not open to anyone. Its own launch definition records
+        <strong>3 of 8</strong> invite-gate items met, one half-met and four open. Everything in
+        this deck was photographed from the running stack on 19 September 2026.
+      </p>
+    </div>
+    <figure>
+      <img src="screenshots/01-entry-landing.webp" alt="The platform's public entry page and sign-in panel">
+      <figcaption>
+        The front door, signed out. <b>There is no public registration</b> — the panel says so
+        itself: access is limited to accounts created or invited by the owner.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <p class="eyebrow">The problem</p>
+  <h2>Threat hunting is taught as theory and tested as trivia</h2>
+  <p>
+    A hunter's job is to form a hypothesis, go to the evidence, and come back with a
+    determination they can defend. Almost none of the training market asks anyone to do that.
+  </p>
+  <ul>
+    <li>Courses hand out slides; the learner never opens a capture.</li>
+    <li>Exams ask which answer is correct, not what the evidence shows.</li>
+    <li>Labs are recorded videos, or a sandbox with the answer already on screen.</li>
+    <li>Arabic-language material is a translation layer over the same theory.</li>
+  </ul>
+  <div class="rule"></div>
+  <p class="lead">
+    This platform's premise: <strong>if a claim cannot be checked, it does not ship.</strong>
+    Applied to the curriculum, to the exam, to the evidence in every lab — and to this deck.
+  </p>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <p class="eyebrow">What it is</p>
+  <h2>One paper, eleven labs, and a record that cannot be quietly edited</h2>
+  <div class="grid g4" style="margin-bottom:20px">
+    <div class="stat"><b>5</b><span>licensed INE course files ingested</span></div>
+    <div class="stat"><b>453</b><span>source pages extracted, across 58 sections</span></div>
+    <div class="stat"><b>55</b><span>published lessons, each citing its pages</span></div>
+    <div class="stat"><b>643</b><span>published questions across 14 types</span></div>
+    <div class="stat"><b>60</b><span>questions in the offered paper — 40 theory, 20 hands-on</span></div>
+    <div class="stat"><b>11</b><span>lab scenarios live in the catalogue</span></div>
+    <div class="stat"><b>75</b><span>lab artefact rows, each with a published SHA-256</span></div>
+    <div class="stat"><b>20</b><span>database triggers making the record append-only</span></div>
+  </div>
+  <p class="dim" style="font-size:19px">
+    Every figure on this slide is a <span class="mono">count(*)</span> against the live database,
+    run on 19 September 2026, not a target and not a plan.
+  </p>
+  <p class="dim" style="font-size:19px">
+    Out of scope by decision, not by omission: public sign-up, payments, multi-tenant B2B,
+    mobile apps, live malware, outbound access from a lab, and a marketing website.
+  </p>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <p class="eyebrow">Curriculum</p>
+  <h2>Five domains, and every lesson points at the pages it came from</h2>
+  <figure>
+    <img src="screenshots/04-learn-curriculum-index.webp" alt="Curriculum index listing lessons with their source page ranges">
+    <figcaption>
+      <b>55 published lessons</b> across Threat Hunting Methodology, Cyber Threat Intelligence,
+      Threat Hunting Strategies, Network Threat Hunting and Endpoint Threat Hunting. Each row
+      carries its version and its citation —
+      <span class="mono">INE-Introduction-to-Threat-Hunting-Course-File.pdf · pages 1–7</span>,
+      then 8–18, then 19–22. The path is INE's; the ordering is INE's.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <p class="eyebrow">Curriculum · provenance</p>
+  <h2>A lesson cannot be published before its pages exist</h2>
+  <figure>
+    <img src="screenshots/06-learn-lesson-citation.webp" alt="Lesson page showing the source citation and page range">
+    <figcaption>
+      Every lesson names the course file and the page range it came from — here
+      <span class="mono">INE-Endpoint-Threat-Hunting-Course-File.pdf · pages 30–50</span> — and
+      carries a <b>source-verified</b> chip that only turns green once those pages are in the
+      database and both language versions have been reviewed.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <p class="eyebrow">Curriculum · provenance</p>
+  <h2>The page itself, with the hash of the page</h2>
+  <figure>
+    <img src="screenshots/08-learn-lesson-source-visual.webp" alt="Rendered source page with its SHA-256 printed beneath">
+    <figcaption>
+      The learner sees the actual course page — INE's own <i>Useful Sysmon Events</i> table,
+      event IDs 1, 2, 3, 6, 8, 9, 10 — captioned with the file, the page number and that page's
+      <b>SHA-256</b> (<span class="mono">f0a3a742…cca16d6c</span>, page 33). The citation is
+      checkable rather than asserted, which is the whole argument for building a curriculum in a
+      database instead of a slide deck.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <p class="eyebrow">Curriculum · recall</p>
+  <h2>The explanation arrives after the answer, never before</h2>
+  <figure>
+    <img src="screenshots/12-learn-knowledge-check-scored.webp" alt="Knowledge check answered and scored with an explanation">
+    <figcaption>
+      Scored in place against the server. The reasoning is revealed only once the learner has
+      committed — here the check on Sysmon Event ID 1 versus 3 versus 22 — and the lesson closes
+      with a memory summary that repeats the distinction in one line each.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <p class="eyebrow">Curriculum · governance</p>
+  <h2>Publication is a state machine, and retirement is the only exit</h2>
+  <figure>
+    <img src="screenshots/90-admin-content.webp" alt="Curriculum review state in the administration console">
+    <figcaption>
+      The editor's own view: <b>55 lessons, all PUBLISHED</b>, each with its domain, its source
+      file and page range, its version, and the single next action the policy allows —
+      <span class="mono">Advance to RETIRED</span>. Publication follows an enforced sequence:
+      draft, source verification, bilingual review, owner approval. <b>Nothing here offers
+      "delete".</b>
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <p class="eyebrow">Assessment</p>
+  <h2>One paper is offered, because INE's exam is one paper</h2>
+  <div class="grid g4" style="margin-bottom:18px">
+    <div class="stat"><b>60</b><span>questions per attempt</span></div>
+    <div class="stat"><b>10h</b><span>server-held timer</span></div>
+    <div class="stat"><b>40 / 20</b><span>theory / hands-on split</span></div>
+    <div class="stat"><b>70%</b><span>pass threshold</span></div>
+  </div>
+  <figure style="flex:1">
+    <img src="screenshots/13-exam-catalogue.webp" alt="The exam catalogue showing a single offered profile">
+    <figcaption>
+      <b>Six exam profiles exist in the database; exactly one is offered</b> —
+      <span class="mono">ECTHP_V3_PUBLIC_2026 · v17</span>. The learner chooses the conditions
+      before the clock starts, and the choices lock. The other five are retired rather than
+      deleted, because a version someone has already sat can never be edited.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <p class="eyebrow">Assessment · the console</p>
+  <h2>Timer, palette, integrity mode, and a lab inside the paper</h2>
+  <figure>
+    <img src="screenshots/14-exam-console-single-choice.webp" alt="Exam console mid-attempt">
+    <figcaption>
+      <b>Server time remaining 09:58:56</b> — held by the server, not the browser. The palette
+      shows answered, current, flagged and unseen across both bands,
+      <span class="mono">THEORY · 40</span> and <span class="mono">PRACTICAL · 20</span>.
+      <b>Controlled analyst lab</b> on the right launches the same hardened workstation from
+      inside the exam: the hands-on half is not a separate product.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <p class="eyebrow">Assessment · what a question can be</p>
+  <h2>Two of the fourteen types</h2>
+  <div class="grid g2 figs" style="flex:1; min-height:0">
+    <figure>
+      <img src="screenshots/15-exam-question-indicator.webp" alt="Exact-indicator question">
+      <figcaption><b>Exact indicator</b> — question 47 of 60. The answer is an artefact the
+        learner must find in evidence (here a beaconing address,
+        <span class="mono">203.0.113.200</span>), not one of four options. <b>Saved to the
+        server</b> appears under the box.</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/16-exam-question-splunk-query.webp" alt="Splunk SPL question">
+      <figcaption><b>Splunk query</b> — question 43 of 60. The learner writes real SPL
+        (<span class="mono">index=badi_windows process.parent.name=WINWORD.EXE …</span>) and it is
+        scored against a rubric, not string-matched.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <p class="eyebrow">Assessment · submission</p>
+  <h2>Submitting is final, and the page says so before it happens</h2>
+  <figure>
+    <img src="screenshots/18-exam-review.webp" alt="Final review page before an immutable submission">
+    <figcaption>
+      <b>Confirm the immutable submission.</b> Answered 8 of 60, unanswered 52, flagged 0 — the
+      counters are the attempt's real state, and the 60-tile grid shows exactly which eight.
+      The acknowledgement is a deliberate checkbox because the database will not allow the
+      attempt to be edited afterwards.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <p class="eyebrow">Assessment · the result</p>
+  <h2>A score with a hash under it</h2>
+  <figure>
+    <img src="screenshots/20-exam-result.webp" alt="Graded attempt result">
+    <figcaption>
+      Automated points <span class="mono">2.00</span>, the instructor-scored portion held
+      separately as <span class="mono">0.00 / 14</span> and marked pending, hint penalties,
+      per-domain performance, weak skills by question type — and the
+      <b>SHA-256 of the submission snapshot</b>
+      (<span class="mono">7a5c4af7…f32c71be</span>), so the graded paper is provably the paper
+      that was submitted. <span class="dim">This attempt scored 2.9% because eight of sixty
+      questions were answered in a capture run. The score is real; the effort was not.</span>
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+  <p class="eyebrow">Assessment · governance</p>
+  <h2>A used version is frozen; changing it creates the next one</h2>
+  <figure>
+    <img src="screenshots/91-admin-exams.webp" alt="Exam profile administration showing versions and retirement">
+    <figcaption>
+      <b>643 published questions</b> behind the bank. The page states the rule it enforces:
+      <i>used versions remain immutable; configuration changes create a draft version and
+      privileged publication records an audit event.</i> The profile shown,
+      <span class="mono">ECTHP_COMPREHENSIVE_2026 v8</span>, is <b>PUBLISHED and retired at the
+      same time</b> — its versions stay readable for the attempts that used them while the paper
+      is no longer offered to anyone.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+  <p class="eyebrow">Labs</p>
+  <h2>Eleven scenarios, each a container you can actually work in</h2>
+  <figure>
+    <img src="screenshots/24-lab-catalogue-full.webp" alt="The lab catalogue, all eleven cards">
+    <figcaption>
+      Packet analysis · DNS tunnelling · C2 beaconing · capture filters · taking your own
+      capture · endpoint intrusion in a terminal · the same intrusion in Kibana · and in Splunk ·
+      Windows telemetry · an integrated hunt across two evidence sources · and the exam's own
+      range. Each card names its version and its tools. <b>One session at a time on this host</b>,
+      by configuration (<span class="mono">LAB_MAX_CONCURRENCY=1</span>).
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 16 -->
+<section class="slide">
+  <p class="eyebrow">Labs · the whole catalogue</p>
+  <h2>What each one makes the learner do, and what proves it ran</h2>
+  <table class="tight">
+    <tr><th style="width:21%">Scenario</th><th style="width:30%">The work</th><th>Photographed evidence that it ran</th><th style="width:9%">Frames</th></tr>
+    <tr><td class="mono">wireshark-packet-analysis v1</td><td>Read a capture you know nothing about</td><td class="mono">Wireshark on mixed-traffic.pcap — Packets: 244</td><td class="mono">80–83</td></tr>
+    <tr><td class="mono">network-dns-investigation v1</td><td>Find the abnormal DNS pattern</td><td class="mono">Wireshark, <i>dns</i> filter — 6 displayed of 6, queries 0x4001–0x4006 to 203.0.113.53</td><td class="mono">64–67</td></tr>
+    <tr><td class="mono">network-c2-beacon-hunt v2</td><td>Separate a beacon from ordinary browsing</td><td class="mono">184 packets / 44,816 bytes to 198.51.100.66:443, cadence ≈30 s over 15 timestamps</td><td class="mono">56–59</td></tr>
+    <tr><td class="mono">network-capture-filters v1</td><td>Write BPF capture filters that hold</td><td class="mono">tcpdump -c 12 → 12 captured, 14 received, 0 dropped; dumpcap cap_net_raw=eip</td><td class="mono">60–63</td></tr>
+    <tr><td class="mono">network-traffic-capture v1</td><td>Take the capture yourself, then read it</td><td class="mono">15 captured / 42 filtered / 0 dropped; tshark io,phs — 15 frames, 38,282 bytes</td><td class="mono">68–71</td></tr>
+    <tr><td class="mono">endpoint-investigation v1</td><td>Correlate process, logon and network</td><td class="mono">jq over sysmon.jsonl; 4624 type 2, 4624 type 3, 4625 type 3; tshark conv 10.44.0.15:51842 ↔ 198.51.100.27:8443</td><td class="mono">44–47</td></tr>
+    <tr><td class="mono">endpoint-siem-hunt v2</td><td>The same intrusion, in Elastic</td><td class="mono">Kibana Discover, badi-endpoint-telemetry — Documents (311), 26 fields</td><td class="mono">48–51</td></tr>
+    <tr><td class="mono">splunk-endpoint-hunt v2</td><td>The same intrusion, in Splunk</td><td class="mono">Splunk Enterprise 10.4.1 — 311 events, Statistics (36) over index=badi_endpoint</td><td class="mono">72–75</td></tr>
+    <tr><td class="mono">windows-threat-hunt v2</td><td>Operation Desert Dropbear, Windows telemetry</td><td class="mono">Kibana Discover, badi-windows-hunt — Documents (699), 43 fields</td><td class="mono">76–79</td></tr>
+    <tr><td class="mono">integrated-intrusion-hunt v2</td><td>One intrusion across two evidence sources</td><td class="mono">flow rollup 189 packets / 49,376 bytes to 203.0.113.200:443; sha256sum over the mounted evidence</td><td class="mono">52–55</td></tr>
+    <tr><td class="mono">comprehensive-range v2</td><td>The exam's own range: Kibana, Splunk and a terminal</td><td class="mono">Kibana Discover, badi-windows-hunt — Documents (699), 43 fields</td><td class="mono">40–43</td></tr>
+  </table>
+  <p class="dim" style="font-size:18px; margin-top:12px">
+    All eleven were launched, worked in and destroyed on 19 September 2026. The frame numbers are
+    the files shipped beside this deck — brief, evidence list, running desktop, and the tool
+    full-screen, for every scenario.
+  </p>
+</section>
+
+<!-- 17 -->
+<section class="slide">
+  <p class="eyebrow">Labs · evidence integrity</p>
+  <h2>Every artefact arrives with the hash it should have</h2>
+  <figure>
+    <img src="screenshots/81-lab-wireshark-packet-analysis-artifacts.webp" alt="Lab session page listing artefacts with SHA-256 digests">
+    <figcaption>
+      The session page prints the SHA-256 of each mounted file —
+      <span class="mono">evidence/mixed-traffic.pcap · b64bd708…ca9f7e96</span> — so a learner can
+      hash the file inside the container and compare. A guard reads the <b>database and the
+      mounted volume</b> and compares them:
+      <span class="mono">75 database rows · 68 mounted files · 68 repo files · 47 seed tuples
+      cross-checked · 0 mismatched</span>. An earlier version of that guard compared the seed
+      against itself and reported green while sixteen learner-visible hashes were wrong; that is
+      why it now reads the volume.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 18 -->
+<section class="slide">
+  <p class="eyebrow">Labs · the workstation</p>
+  <h2>Wireshark, on the learner's own screen, on the scenario's own capture</h2>
+  <figure>
+    <img src="screenshots/83-lab-wireshark-packet-analysis-tool.webp" alt="Wireshark open on the scenario PCAP inside the running lab">
+    <figcaption>
+      <span class="mono">mixed-traffic.pcap</span>, <b>244 packets</b>, opened in Wireshark inside
+      the running container — packet list, dissection tree and hex pane, DNS and HTTP over
+      10.10.20.0/24. The taskbar behind it is the desktop's own: terminal, file manager, browser
+      with the case brief.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 19 -->
+<section class="slide">
+  <p class="eyebrow">Labs · the SIEM is a SIEM</p>
+  <h2>Kibana, over 699 indexed Windows events</h2>
+  <figure>
+    <img src="screenshots/79-lab-windows-threat-hunt-tool.webp" alt="Kibana Discover inside the lab, showing 699 documents">
+    <figcaption>
+      Elasticsearch and Kibana on the lab-internal network, reached by hostname from the
+      workstation's own browser. <b>Documents (699)</b> over the
+      <span class="mono">badi-windows-hunt</span> data view, <b>43 available fields</b>, a 24-hour
+      histogram peaking near 09:00, five pages of 100 rows — Sysmon process, DNS, network and file
+      events from the scenario's dataset. Not a mock console and not a screenshot of someone
+      else's Kibana.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 20 -->
+<section class="slide">
+  <p class="eyebrow">Labs · the SIEM is a SIEM</p>
+  <h2>And Splunk is Splunk</h2>
+  <figure>
+    <img src="screenshots/75-lab-splunk-endpoint-hunt-tool.webp" alt="Splunk inside the lab running SPL over the scenario index">
+    <figcaption>
+      <b>Splunk Enterprise 10.4.1</b> on the same island network, signed in with the training
+      account the scenario's brief documents, running
+      <span class="mono">index=badi_endpoint | stats count by "host.name","process.parent.name","process.name"</span>
+      — <b>311 events</b>, <b>Statistics (36)</b>, the parent-to-child chain visible row by row.
+      The rule the project set itself: if we call it Splunk it must be Splunk.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 21 -->
+<section class="slide">
+  <p class="eyebrow">Labs · the same intrusion, twice</p>
+  <h2>One dataset, two SIEMs — and the exam's own range</h2>
+  <div class="grid g2 figs" style="flex:1; min-height:0">
+    <figure>
+      <img src="screenshots/51-lab-endpoint-siem-hunt-tool.webp" alt="Kibana Discover over the endpoint telemetry index">
+      <figcaption><b>endpoint-siem-hunt.</b> The intrusion Splunk saw as 311 events, in Kibana:
+        <b>Documents (311)</b>, 26 fields, over
+        <span class="mono">badi-endpoint-telemetry</span>. Same evidence, different console —
+        which is the skill.</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/43-lab-comprehensive-range-tool.webp" alt="Kibana Discover on the exam range workstation">
+      <figcaption><b>comprehensive-range.</b> The workstation the exam itself launches, carrying
+        Kibana, a Splunk tab and a terminal at once — <b>Documents (699)</b>, 43 fields. The
+        hands-on half of the paper is worked here.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 22 -->
+<section class="slide">
+  <p class="eyebrow">Labs · pattern over volume</p>
+  <h2>A beacon has a rhythm; a tunnel has a shape</h2>
+  <div class="grid g2 figs" style="flex:1; min-height:0">
+    <figure>
+      <img src="screenshots/59-lab-network-c2-beacon-hunt-tool.webp" alt="Analyst terminal showing beacon cadence and evidence hashes">
+      <figcaption><b>C2 beaconing.</b> Ordinary flows carry 4 packets; one carries
+        <b>184 packets / 44,816 bytes</b> to <span class="mono">198.51.100.66:443</span>, with
+        fifteen timestamps <b>≈30 seconds apart</b>. The same screen ends with
+        <span class="mono">sha256sum</span> over the mounted evidence.</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/67-lab-network-dns-investigation-tool.webp" alt="Wireshark filtered to DNS on the tunnelling capture">
+      <figcaption><b>DNS tunnelling.</b> Wireshark with a <span class="mono">dns</span> display
+        filter: <b>6 displayed of 6</b>, query IDs 0x4001–0x4006, three internal hosts all
+        resolving through <span class="mono">203.0.113.53</span>, the long TXT queries visibly
+        larger than the A queries.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 23 -->
+<section class="slide">
+  <p class="eyebrow">Labs · the analyst's own hands</p>
+  <h2>A real capture, taken unprivileged, inside the box</h2>
+  <div class="grid g2 figs" style="flex:1; min-height:0">
+    <figure>
+      <img src="screenshots/63-lab-network-capture-filters-tool.webp" alt="tcpdump running live inside the lab container">
+      <figcaption><b>Capture filters.</b> <span class="mono">uid=1000(analyst)</span> ·
+        <span class="mono">/usr/bin/dumpcap cap_net_raw=eip</span> ·
+        <b>12 packets captured, 14 received by filter, 0 dropped</b>. The capability sits on the
+        binary, not on the user.</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/71-lab-network-traffic-capture-tool.webp" alt="A capture taken by the learner and read back with tshark">
+      <figcaption><b>Your own capture.</b> <span class="mono">tcpdump -w /tmp/session.pcap -c 15</span>
+        → <b>15 captured, 0 dropped</b>, then read back with
+        <span class="mono">tshark -q -z io,phs</span>: 15 frames, <b>38,282 bytes</b>, eth → ip →
+        tcp → data. The evidence is one the learner made.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 24 -->
+<section class="slide">
+  <p class="eyebrow">Labs · correlation</p>
+  <h2>Three evidence sources, one intrusion</h2>
+  <div class="grid g2 figs" style="flex:1; min-height:0">
+    <figure>
+      <img src="screenshots/47-lab-endpoint-investigation-tool.webp" alt="Analyst terminal correlating Sysmon, authentication and a capture">
+      <figcaption><b>endpoint-investigation.</b> The process chain from
+        <span class="mono">userinit → explorer → WINWORD → powershell</span>, the
+        <span class="mono">4624</span> type 2 and type 3 logons and the
+        <span class="mono">4625</span> failure beside it, then the TCP conversation
+        <span class="mono">10.44.0.15:51842 ↔ 198.51.100.27:8443</span> from the capture.</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/55-lab-integrated-intrusion-hunt-tool.webp" alt="Analyst terminal on the integrated intrusion scenario">
+      <figcaption><b>integrated-intrusion-hunt.</b> The flow rollup singles out
+        <span class="mono">10.10.20.53 → 203.0.113.200:443</span> at <b>189 packets / 49,376
+        bytes</b> against neighbours of four; sixteen beacon timestamps confirm the cadence; and
+        <span class="mono">sha256sum</span> prints the digests the product already published.
+        <b>jq, tshark and tcpdump are in the image</b> because this is where the work happens.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 25 -->
+<section class="slide">
+  <p class="eyebrow">Labs · isolation, shown not asserted</p>
+  <h2>What the container can and cannot do</h2>
+  <figure>
+    <img src="screenshots/87-lab-isolation-proof.webp" alt="Terminal output proving the container's isolation">
+    <figcaption>
+      Run inside a live lab session, every line a command and its real output: never root
+      (<span class="mono">uid=1000(analyst)</span>), an empty effective capability set
+      (<span class="mono">CapEff 0000000000000000</span>, <span class="mono">NoNewPrivs 1</span>),
+      a root filesystem that <b>refuses a write</b>, evidence mounted read-only that refuses one
+      too, the island network reachable
+      (<span class="mono">lab-internal: http=200</span>) and the internet not
+      (<span class="mono">internet: http=000 — no route</span>), and a
+      <b>2 GiB</b> cgroup ceiling (<span class="mono">2147483648</span>).
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 26 -->
+<section class="slide">
+  <p class="eyebrow">Labs · the product around the lab</p>
+  <h2>The same proof, inside the page the learner uses</h2>
+  <figure>
+    <img src="screenshots/86-lab-isolation-proof-in-product.webp" alt="The lab session page framing the live workstation">
+    <figcaption>
+      Nothing about the desktop is a separate tool. The session page holds it —
+      <b>Live</b>, <b>Reset ephemeral workstation</b>, <b>Stop and destroy</b>,
+      <b>Open in a separate window</b> — with the read-only evidence and its digests underneath,
+      and the checkpoint form that submits a determination for grading. The workstation is
+      ephemeral: <b>every session in this package was destroyed at the end of its capture.</b>
+    </figcaption>
+  </figure>
+</section>
+
+<!-- 27 -->
+<section class="slide">
+  <p class="eyebrow">Administration</p>
+  <h2>Invitation-only by mechanism, and a ledger nobody can edit</h2>
+  <div class="grid g2 figs" style="flex:1; min-height:0">
+    <figure>
+      <img src="screenshots/93-admin-operations.webp" alt="Operations console: account creation and one-time invitations">
+      <figcaption><b>12 accounts.</b> Accounts are created or invited by the owner; the
+        invitation page states its own rule — <i>the raw token is shown once and only its SHA-256
+        hash is stored</i>, and a new invitation for the same address revokes the pending
+        one.</figcaption>
+    </figure>
+    <figure>
+      <img src="screenshots/95-admin-audit.webp" alt="The append-only audit ledger">
+      <figcaption><b>327 audit events</b> in the database; the page shows the newest 50 without
+        secret values. Every row here is a lab session queued and stopped by the owner during
+        this capture — the ledger records what actually happened, which on this day was a
+        photographer. <b>No row can be edited or deleted: the database refuses.</b></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 28 -->
+<section class="slide">
+  <p class="eyebrow">Architecture</p>
+  <h2>One compose file, one socket, two island networks</h2>
+  <svg viewBox="0 0 1180 470" style="width:100%; max-width:1180px; height:auto; flex:0 0 auto" role="img"
+       aria-label="Architecture diagram">
+    <defs>
+      <style>
+        .b{fill:#11171f; stroke:#22303d}
+        .t{fill:#d7e3ec; font-family:var(--mono, monospace); font-size:17px}
+        .s{fill:#8fa3b4; font-family:var(--mono, monospace); font-size:14px}
+        .a{fill:#f0883e; font-family:var(--mono, monospace); font-size:14px}
+        .ln{stroke:#3a4c5c; stroke-width:1.5; fill:none}
+        .lnx{stroke:#f0883e; stroke-width:1.5; fill:none; stroke-dasharray:5 4}
+      </style>
+    </defs>
+
+    <rect class="b" x="20" y="14" width="200" height="54" rx="3"/>
+    <text class="t" x="40" y="38">browser</text>
+    <text class="s" x="40" y="58">the learner</text>
+    <path class="ln" d="M120 68 L120 104"/>
+
+    <rect class="b" x="20" y="104" width="200" height="54" rx="3"/>
+    <text class="t" x="40" y="128">caddy</text>
+    <text class="s" x="40" y="148">the only host port</text>
+    <path class="ln" d="M120 158 L120 194"/>
+
+    <rect class="b" x="20" y="194" width="200" height="70" rx="3"/>
+    <text class="t" x="40" y="218">web · Next.js</text>
+    <text class="s" x="40" y="238">read-only rootfs</text>
+    <text class="s" x="40" y="256">no Docker socket</text>
+    <path class="ln" d="M220 229 L288 229"/>
+
+    <rect class="b" x="288" y="166" width="170" height="54" rx="3"/>
+    <text class="t" x="306" y="190">postgres</text>
+    <text class="s" x="306" y="210">20 triggers</text>
+    <rect class="b" x="288" y="238" width="170" height="54" rx="3"/>
+    <text class="t" x="306" y="262">redis</text>
+    <text class="s" x="306" y="282">sessions, queue</text>
+    <path class="ln" d="M458 265 L520 265"/>
+
+    <rect class="b" x="520" y="222" width="220" height="86" rx="3"/>
+    <text class="t" x="540" y="248">orchestrator</text>
+    <text class="s" x="540" y="268">the only holder of</text>
+    <text class="a" x="540" y="288">/var/run/docker.sock</text>
+
+    <path class="lnx" d="M740 265 L812 265"/>
+    <text class="s" x="748" y="256">creates</text>
+
+    <rect class="b" x="812" y="196" width="348" height="140" rx="3"/>
+    <text class="t" x="832" y="222">analyst workstation (ephemeral)</text>
+    <text class="s" x="832" y="246">read-only rootfs · CapDrop ALL · no ports</text>
+    <text class="s" x="832" y="266">2 GiB · 1 CPU · 256 PIDs · uid 1000</text>
+    <text class="s" x="832" y="286">evidence mounted read-only</text>
+    <text class="s" x="832" y="306">per-session screen password</text>
+    <text class="a" x="832" y="326">no route to the internet</text>
+
+    <rect class="b" x="812" y="20" width="348" height="150" rx="3"/>
+    <text class="t" x="832" y="46">SIEM engines · profile-gated</text>
+    <text class="s" x="832" y="70">elasticsearch   heap 1 GiB</text>
+    <text class="s" x="832" y="92">kibana</text>
+    <text class="s" x="832" y="114">splunk enterprise 10.4.1</text>
+    <text class="s" x="832" y="140">reached by hostname from the workstation</text>
+    <path class="ln" d="M986 170 L986 196"/>
+
+    <text class="a" x="520" y="360">badi_app_internal — internal: true</text>
+    <text class="a" x="812" y="360">badi_lab_internal — internal: true</text>
+    <path class="ln" d="M288 372 L1160 372"/>
+    <text class="s" x="20" y="404">Nothing on either internal network can route outward. caddy publishes the single host port.</text>
+    <text class="s" x="20" y="428">web, caddy, orchestrator and the workstation all run read-only, cap-dropped, no-new-privileges.</text>
+    <text class="s" x="20" y="452">The two packet-capture scenarios are the one enumerated exception, and they add NET_RAW only.</text>
+  </svg>
+</section>
+
+<!-- 29 -->
+<section class="slide">
+  <p class="eyebrow">Integrity</p>
+  <h2>Every claim on the previous slides has a command behind it</h2>
+  <table>
+    <tr><th style="width:42%">Claim</th><th>What proves it — run 19 September 2026</th></tr>
+    <tr>
+      <td>Every artefact hash a learner can see matches the mounted bytes</td>
+      <td class="mono">node scripts/check-artifact-hashes.mjs → 75 rows, 68 mounted files, 47 seed tuples, 0 mismatched</td>
+    </tr>
+    <tr>
+      <td>No answer key is reachable from the learner's desktop</td>
+      <td class="mono">bash scripts/check-answer-leaks.sh → 31 shipped files checked against graded answers, none readable</td>
+    </tr>
+    <tr>
+      <td>The lab catalogue matches INE's topic list in both directions</td>
+      <td class="mono">node scripts/check-topic-parity.mjs → 10 labs mapped, INE 10, per-topic parity OK</td>
+    </tr>
+    <tr>
+      <td>No Arabic reaches a servable English exam prompt</td>
+      <td class="mono">bash scripts/check-exam-language.sh → 93 pool entries checked, none carries Arabic</td>
+    </tr>
+    <tr>
+      <td>A signed-out visitor reaches nothing</td>
+      <td class="mono">unauthenticated-access.spec.ts → 40 passed, 9 protected pages, 2 locales, --workers=1</td>
+    </tr>
+    <tr>
+      <td>The record cannot be edited after the fact</td>
+      <td class="mono">20 non-internal Postgres triggers across migrations 0001–0004</td>
+    </tr>
+  </table>
+  <div class="rule"></div>
+  <div class="warn-box">
+    <p><strong>There is no CI.</strong> Every one of those checks is green on one laptop, run by
+      hand. That is a real limitation and it is stated here rather than implied away.</p>
+  </div>
+</section>
+
+<!-- 30 -->
+<section class="slide">
+  <p class="eyebrow">Honest status</p>
+  <h2>What is done, what is not, and what is deliberately absent</h2>
+  <div class="grid g2" style="gap:34px">
+    <div>
+      <h3>Met — 3 of 8 invite-gate items</h3>
+      <div>
+        <span class="chip on">signed-out access closed, 40/40</span>
+        <span class="chip on">auth origins agree, web rebuilt</span>
+        <span class="chip on">four guards and the unit suites green</span>
+      </div>
+      <h3 style="margin-top:18px">Half met — 1</h3>
+      <div>
+        <span class="chip off">restore drill passed; no off-machine copy of the backup</span>
+      </div>
+      <h3 style="margin-top:18px">Open — 4</h3>
+      <div>
+        <span class="chip off">owner's password and TOTP not yet rotated on the serving host</span>
+        <span class="chip off">privileged MFA off until recovery codes exist on paper</span>
+        <span class="chip off">NODE_ENV still development; OWNER_* still in .env</span>
+        <span class="chip off">no password reset, no email transport</span>
+      </div>
+    </div>
+    <div>
+      <h3>Deliberately absent</h3>
+      <ul style="font-size:19px">
+        <li>No public sign-up, no payments, no organisations.</li>
+        <li>No mobile application.</li>
+        <li>No AI tutor and no generative grading.</li>
+        <li>No live malware; no outbound access from any lab.</li>
+        <li>No Kali box and no Windows desktop — INE's own path hands the learner neither, and a
+          test fails if either returns.</li>
+      </ul>
+      <h3 style="margin-top:16px">Not deployed</h3>
+      <p style="font-size:19px" class="dim">
+        The platform runs on one laptop. Hosting is chosen and unbought. Nothing here has an
+        address anyone can reach, and nothing in this deck says otherwise.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 31 -->
+<section class="slide">
+  <div class="title-wrap">
+    <p class="eyebrow">Where it stands</p>
+    <h2 style="font-size:50px">Built to be checked, not to be believed</h2>
+    <p class="lead">
+      Fifty-five lessons that cite their pages. One exam whose submission is hashed. Eleven labs
+      whose evidence carries the digest it should have, all eleven launched and photographed in
+      one day. A record the database will not let anyone quietly edit.
+    </p>
+    <p class="dim">
+      And a status page that says three of eight, because the alternative is a claim nobody can
+      check.
+    </p>
+    <div class="rule"></div>
+    <p class="mono dim" style="font-size:18px">
+      Badi Alosaimi · Threat Hunting Academy · 87 frames captured from the running stack,
+      19 September 2026 · 30 of them shown here · every frame listed in MANIFEST.md
+    </p>
+  </div>
+</section>
+
+<div class="bar" id="bar"></div>
+<div class="foot">
+  <span id="where">1 / 31</span>
+  <span class="keys">← →  ·  space  ·  home / end  ·  f fullscreen</span>
+</div>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const where = document.getElementById('where');
+  const bar = document.getElementById('bar');
+  let i = 0;
+  function show(n){
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('on', k === i));
+    where.textContent = (i + 1) + ' / ' + slides.length;
+    bar.style.width = ((i + 1) / slides.length * 100) + '%';
+    slides[i].scrollTop = 0;
+    try { location.hash = String(i + 1); } catch (e) {}
+  }
+  addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+    else if (e.key === 'Home') { show(0); }
+    else if (e.key === 'End') { show(slides.length - 1); }
+    else if (e.key === 'f' || e.key === 'F') {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen?.();
+    }
+  });
+  addEventListener('click', (e) => { if (!e.target.closest('a')) show(i + 1); });
+  const start = parseInt((location.hash || '').slice(1), 10);
+  show(Number.isFinite(start) && start > 0 ? start - 1 : 0);
+</script>
+</body>
+</html>

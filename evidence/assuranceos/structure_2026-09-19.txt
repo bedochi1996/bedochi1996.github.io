@@ -1,0 +1,52 @@
+AssuranceOS — structure counted from source on 19 September 2026
+Counted by the profile author, from the repository, not from any document.
+
+Prisma data models:
+  - Organization
+  - User
+  - OrganizationMembership
+  - Role
+  - Permission
+  - RolePermission
+  - MembershipRole
+  - SourceDocument
+  - Framework
+  - FrameworkVersion
+  - FrameworkDomain
+  - Requirement
+  - UniversalControl
+  - ControlMapping
+  - Assessment
+  - AssessmentFrameworkVersion
+  - AssessmentAnswer
+  - Evidence
+  - EvidenceLink
+  - GapCandidate
+  - Gap
+  - RemediationTask
+  - Risk
+  - RiskControl
+  - GeneratedDocument
+  - AuditRoom
+  - PolicyDraft
+  - Vendor
+  - VendorAssessment
+  - ComplianceCalendarEvent
+  - ApprovalWorkflow
+  - ApprovalStep
+  - AuditLog
+
+total models: 33
+
+NestJS controllers:
+  - assessment-engine/assessment-engine.controller.ts
+  - assurance-workspace/assurance-workspace.controller.ts
+  - auth/auth.controller.ts
+  - documents/documents.controller.ts
+  - evidence-vault/evidence-vault.controller.ts
+  - gap-workflow/gap-workflow.controller.ts
+  - health/health.controller.ts
+  - operational-workflows/operational-workflows.controller.ts
+  - platform-workspace/platform-workspace.controller.ts
+
+total route decorators (@Get/@Post/@Put/@Patch/@Delete): 23
