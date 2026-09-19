@@ -1179,7 +1179,7 @@ html[lang="ar"] .verify { font-family: var(--body); letter-spacing: 0; text-tran
 /* All three exam scores ride in one tile: showing two of three is a choice a
    reader notices. The type steps down so the row still fits. */
 .metric .n.scores {
-  font-size: clamp(17px, 1.6vw, 24px); letter-spacing: -0.01em;
+  font-size: clamp(16px, 1.45vw, 21px); letter-spacing: -0.01em;
   white-space: nowrap; max-width: 100%;
 }
 @media (max-width: 1180px) { .metric .n.scores { font-size: clamp(19px, 3.3vw, 34px); } }
