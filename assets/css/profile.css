@@ -1141,7 +1141,7 @@ html[lang="ar"] .docgroup .wh { line-height: 1.95; }
   transition: color .16s ease, border-color .16s ease, background .16s ease;
 }
 .clip svg { width: 13px; height: 13px; flex: none; }
-html[lang="ar"] html[lang="ar"] .clip:hover, .clip:focus-visible {
+.clip:hover, .clip:focus-visible {
   color: var(--saffron); border-color: var(--saffron); background: var(--surface);
 }
 
@@ -1178,7 +1178,12 @@ html[lang="ar"] .verify { font-family: var(--body); letter-spacing: 0; text-tran
 
 /* All three exam scores ride in one tile: showing two of three is a choice a
    reader notices. The type steps down so the row still fits. */
-.metric .n.scores { font-size: clamp(22px, 2.4vw, 30px); letter-spacing: -0.01em; white-space: nowrap; }
+.metric .n.scores {
+  font-size: clamp(17px, 1.6vw, 24px); letter-spacing: -0.01em;
+  white-space: nowrap; max-width: 100%;
+}
+@media (max-width: 1180px) { .metric .n.scores { font-size: clamp(19px, 3.3vw, 34px); } }
+@media (max-width: 620px)  { .metric .n.scores { font-size: clamp(17px, 4.4vw, 24px); } }
 
 
 /* A captured account header, shown where its figure is claimed. */
@@ -1198,13 +1203,6 @@ html[lang="ar"] .ach .shot figcaption { font-family: var(--body); letter-spacing
 .p-title .clip, .cert .code .clip, .exam h3 .clip { font-weight: 400; letter-spacing: 0; }
 .cert .code .clip { margin-inline-start: 8px; }
 
-/* Touch and narrow screens have no hover, so the label is simply always there.
-   It then has to be allowed to wrap: a nowrap label pinned to the end of a
-   heading pushed the whole page 61px wide at 390px. */
-/* No hover on touch, so the label would never appear — it is simply not shown
-   there. The icon is still a link and still labelled for assistive tech. */
-@media (hover: none) {
-  /* Print: a clip is useless on paper, but its label is not */
 
 /* ── Exam scores ────────────────────────────────────────────────────────────
    Three real scores, each beside the mark it had to clear. A rounded claim
@@ -1251,7 +1249,8 @@ h3.mt { margin-top: var(--s-8); }
 @media print {
   .clip { border: 0; padding: 0; color: #555; }
   .clip svg { display: none; }
-  
+}
+
 @media print {
   /* The screen palette is light-on-dark; paper needs the inverse or the page
      prints as blank rectangles. Re-point the tokens rather than chasing rules. */
